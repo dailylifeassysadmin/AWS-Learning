@@ -1,7 +1,18 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Simple CloudFormation template to create an EC2 instance
 
+
 Resources:
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH access via port 22
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp:
+
   MyEC2Instance:
     Type: AWS::EC2::Instance
     Properties:
@@ -9,18 +20,10 @@ Resources:
       InstanceType: t2.micro
       KeyName: my-key-pair # Replace with your key pair name
       SecurityGroupIds:
-        - !Ref InstanceSecurityGroup
+        - !Ref InstanceSecurityGroup:
       Tags:
         - Key: Environment
           Value: Testing
 
 
-  InstanceSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: Enable SSH access
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: 22
-          ToPort: 22
-          CidrIp: 0.0.0.0/0
+          
