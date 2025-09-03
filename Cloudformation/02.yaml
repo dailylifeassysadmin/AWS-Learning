@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Simple CloudFormation template to create an EC2 instance
+
+Resources:
+  MyWebServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-020cba7c55df1f615 # Amazon Linux 2 AMI (update as needed)
+      InstanceType: t3.micro
+      KeyName: swa_ravi # Replace with your key pair name
+      SecurityGroupIds:
+        - !Ref MyWebServerSecurityGroup
+      Tags:
+        - Key: Environment
+          Value: Testing
+
+  MyWebServerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH and HTTP access
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+  MyWebServer2:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-020cba7c55df1f615 # Amazon Linux 2 AMI (update as needed)
+      InstanceType: t3.micro
+      KeyName: swa_ravi # Replace with your key pair name
+      SecurityGroupIds:
+        - !Ref MyWebServerSecurityGroup
+      Tags:
+        - Key: Environment
+          Value: Testing
